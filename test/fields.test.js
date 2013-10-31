@@ -149,20 +149,19 @@ describe('List aggregator fields option', function () {
           results.should.have.length(1)
           results.forEach(function (result) {
             var properties =
-              [ 'type'
+              [ '_id'
+              , 'type'
               , 'shortTitle'
               , 'longTitle'
+              , 'standfirst'
               , 'subTitle'
-              , 'crops'
+              , 'slug'
               , 'displayDate'
               , 'showDisplayDate'
               , 'tags'
-              , 'images'
-              , 'downloads'
               , 'commentCount'
               , 'viewCount'
-              , 'standfirst'
-              , '_id'
+              , 'section'
               ]
 
             properties.forEach(function (prop) {

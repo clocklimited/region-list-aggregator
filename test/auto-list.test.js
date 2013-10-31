@@ -5,7 +5,7 @@ var createAggregator = require('..')
   , moment = require('moment')
   , _ = require('lodash')
   , eql = require('fleet-street/lib/sequential-object-eql')
-  , articleFixtures = require('fleet-street/test/article/fixtures')
+  , returnedArticle = require('./returned-article-fixture')
   , sectionFixtures = require('fleet-street/test/section/fixtures')
   , publishedArticleMaker = require('./lib/published-article-maker')
   , draftArticleMaker = require('./lib/draft-article-maker')
@@ -78,16 +78,13 @@ describe('List aggregator (for an auto list)', function () {
         if (err) throw err
 
         var aggregate = createAggregator(listService, sectionService, articleService, { logger: logger })
-
         aggregate(listId, null, null, section, function (err, results) {
           should.not.exist(err)
           results.should.have.length(3)
           results.forEach(function (result, i) {
-            eql(_.extend(
-                  {}
-                , articleFixtures.minimalNewPublishedModel
-                , { _id: articles[i].articleId, tags: articles[i].tags, section: null })
-              , result, false, true)
+            eql(returnedArticle({ _id: articles[i].articleId,
+              tags: articles[i].tags, displayDate: result.displayDate }),
+            result, false, true)
           })
           done()
         })
@@ -131,10 +128,8 @@ describe('List aggregator (for an auto list)', function () {
           should.not.exist(err)
           results.should.have.length(4)
           results.forEach(function (result, i) {
-            eql(_.extend(
-                  {}
-                , articleFixtures.minimalNewPublishedModel
-                , { _id: articles[i].articleId, section: null })
+            eql(returnedArticle(
+              { _id: articles[i].articleId, displayDate: result.displayDate })
               , result, false, true)
           })
           done()
@@ -178,10 +173,8 @@ describe('List aggregator (for an auto list)', function () {
           should.not.exist(err)
           results.should.have.length(3)
           results.forEach(function (result, i) {
-            eql(_.extend(
-                  {}
-                , articleFixtures.minimalNewPublishedModel
-                , { _id: articles[i].articleId, section: null })
+            eql(returnedArticle(
+              { _id: articles[i].articleId, displayDate: result.displayDate })
               , result, false, true)
           })
           done()
@@ -226,10 +219,8 @@ describe('List aggregator (for an auto list)', function () {
           should.not.exist(err)
           results.should.have.length(3)
           results.forEach(function (result, i) {
-            eql(_.extend(
-                  {}
-                , articleFixtures.minimalNewPublishedModel
-                , { _id: articles[i].articleId, section: null })
+            eql(returnedArticle(
+              { _id: articles[i].articleId, displayDate: result.displayDate })
               , result, false, true)
           })
           done()
@@ -274,13 +265,9 @@ describe('List aggregator (for an auto list)', function () {
           should.not.exist(err)
           results.should.have.length(5)
           results.forEach(function (result, i) {
-            eql(_.extend(
-                  {}
-                , articleFixtures.minimalNewPublishedModel
-                , { _id: articles[articles.length - i - 1].articleId
-                  , displayDate: articles[articles.length - i - 1].displayDate
-                  , section: null
-                  })
+            eql(returnedArticle(
+              { _id: articles[articles.length - i - 1].articleId
+              , displayDate: articles[articles.length - i - 1].displayDate })
               , result, false, true)
           })
           done()
@@ -325,13 +312,10 @@ describe('List aggregator (for an auto list)', function () {
           should.not.exist(err)
           results.should.have.length(5)
           results.forEach(function (result, i) {
-            eql(_.extend(
-                  {}
-                , articleFixtures.minimalNewPublishedModel
-                , { _id: articles[articles.length - i - 1].articleId
-                  , shortTitle: articles[articles.length - i - 1].shortTitle
-                  , section: null
-                  })
+            eql(returnedArticle(
+              { _id: articles[articles.length - i - 1].articleId
+              , displayDate: result.displayDate
+              , shortTitle: articles[articles.length - i - 1].shortTitle })
               , result, false, true)
           })
           done()

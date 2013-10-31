@@ -5,7 +5,7 @@ var createAggregator = require('..')
   , moment = require('moment')
   , _ = require('lodash')
   , eql = require('fleet-street/lib/sequential-object-eql')
-  , articleFixtures = require('fleet-street/test/article/fixtures')
+  , returnedArticle = require('./returned-article-fixture')
   , sectionFixtures = require('fleet-street/test/section/fixtures')
   , customListItemMaker = require('./lib/custom-list-item-maker')
   , publishedArticleMaker = require('./lib/published-article-maker')
@@ -167,8 +167,9 @@ describe('List aggregator (for a manual list)', function () {
           should.not.exist(err)
           results.should.have.length(5)
           results.forEach(function (result, i) {
-            eql(_.extend({}, articleFixtures.minimalNewPublishedModel, { _id: articles[i].articleId, section: null }),
-              result, false, true)
+            eql(returnedArticle({ _id: articles[i].articleId,
+               displayDate: result.displayDate }),
+            result, false, true)
           })
           done()
         })
@@ -210,8 +211,9 @@ describe('List aggregator (for a manual list)', function () {
           should.not.exist(err)
           results.should.have.length(3)
           results.forEach(function (result, i) {
-            eql(_.extend({}, articleFixtures.minimalNewPublishedModel, { _id: articles[i].articleId, section: null }),
-              result, false, true)
+            eql(returnedArticle({ _id: articles[i].articleId,
+               displayDate: result.displayDate }),
+            result, false, true)
           })
           done()
         })
@@ -254,8 +256,9 @@ describe('List aggregator (for a manual list)', function () {
           should.not.exist(err)
           results.should.have.length(2)
           results.forEach(function (result, i) {
-            eql(_.extend({}, articleFixtures.minimalNewPublishedModel, { _id: articles[i].articleId, section: null }),
-              result, false, true)
+            eql(returnedArticle({ _id: articles[i].articleId,
+               displayDate: result.displayDate }),
+            result, false, true)
           })
           done()
         })
@@ -311,8 +314,9 @@ describe('List aggregator (for a manual list)', function () {
           should.not.exist(err)
           results.should.have.length(3)
           results.forEach(function (result, i) {
-            eql(_.extend({}, articleFixtures.minimalNewPublishedModel, articles[i], { section: null }),
-              result, false, true)
+            eql(returnedArticle({ _id: articles[i].articleId,
+               displayDate: result.displayDate }),
+            result, false, true)
           })
           done()
         })
