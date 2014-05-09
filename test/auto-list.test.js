@@ -137,6 +137,99 @@ describe('List aggregator (for an auto list)', function () {
       })
   })
 
+  it('should return articles from regions', function (done) {
+
+    var articles = []
+      , listId
+      , listService = createListService()
+      , sectionService = createSectionService()
+      , articleService = createArticleService()
+
+    async.series(
+      [ publishedArticleMaker(articleService, articles, { region: '3' })
+      , publishedArticleMaker.createArticles(3, articleService, articles, { region: '4' })
+      , publishedArticleMaker.createArticles(2, articleService, [])
+      , draftArticleMaker(articleService)
+      , publishedArticleMaker(articleService, [], { region: '5' })
+      , function (cb) {
+          listService.create(
+            { type: 'auto'
+            , name: 'test list'
+            , order: 'recent'
+            , regions: [ '3', '4' ]
+            , limit: 100
+            }
+            , function (err, res) {
+                listId = res._id
+                cb(null)
+              })
+        }
+      ], function (err) {
+        if (err) throw err
+
+        var aggregate = createAggregator(listService, sectionService, articleService, { logger: logger })
+
+        aggregate(listId, null, null, section, function (err, results) {
+          should.not.exist(err)
+          results.should.have.length(4)
+          results.forEach(function (result, i) {
+            eql(returnedArticle(
+              { _id: articles[i].articleId, displayDate: result.displayDate })
+              , result, false, true)
+          })
+          done()
+        })
+
+      })
+  })
+
+  it('should return articles from sections and regions', function (done) {
+
+    var articles = []
+      , listId
+      , listService = createListService()
+      , sectionService = createSectionService()
+      , articleService = createArticleService()
+
+    async.series(
+      [ publishedArticleMaker(articleService, articles, { region: '3', section: '1' })
+      , publishedArticleMaker.createArticles(3, articleService, articles, { region: '4', section: '1' })
+      , publishedArticleMaker.createArticles(2, articleService, [])
+      , draftArticleMaker(articleService)
+      , publishedArticleMaker(articleService, [], { region: '5' })
+      , function (cb) {
+          listService.create(
+            { type: 'auto'
+            , name: 'test list'
+            , order: 'recent'
+            , regions: [ '3', '4' ]
+            , sections: [ '1', '2' ]
+            , limit: 100
+            }
+            , function (err, res) {
+                listId = res._id
+                cb(null)
+              })
+        }
+      ], function (err) {
+        if (err) throw err
+
+        var aggregate = createAggregator(listService, sectionService, articleService, { logger: logger })
+
+        aggregate(listId, null, null, section, function (err, results) {
+          should.not.exist(err)
+          results.should.have.length(4)
+          results.forEach(function (result, i) {
+            eql(returnedArticle(
+              { _id: articles[i].articleId, displayDate: result.displayDate })
+              , result, false, true)
+          })
+          done()
+        })
+
+      })
+  })
+
   it ('should return articles of a particular type', function(done) {
     var articles = []
       , listId

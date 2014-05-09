@@ -25,7 +25,7 @@ module.exports = function(saveEngine) {
     var articleSave = save('article',
         // Create a unique name for the memgo engine so it always starts empty.
         { engine: saveEngine, debug: false, logger: logger })
-      , schema = require('fleet-street/bundles/article/article-schema')([], articleSave)
+      , schema = require('./article-schema')([], articleSave)
       , service = crudService('article', articleSave, schema)
 
     // Find the articles that are available to the public

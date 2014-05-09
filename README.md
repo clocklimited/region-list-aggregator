@@ -1,10 +1,10 @@
-# cf-list-aggregator
+# region-list-aggregator
 
 Compiles lists of content base on defined filtering and ordering.
 
 ## Installation
 
-      npm install cf-list-aggregator
+      npm install region-list-aggregator
 
 ## Usage
 
@@ -50,6 +50,7 @@ Automatic lists are used to auto-generate list content based on a number of prop
 
 - tags
 - sections
+- regions
 - articletypes
 - articleSubTypes
 

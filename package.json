@@ -43,6 +43,11 @@
     "save-mongodb": "0.0.11",
     "jshint": "~2.3.0",
     "istanbul": "~0.1.44",
-    "jshint-full-path": "~0.1.0"
+    "jshint-full-path": "~0.1.0",
+    "cf-sectionizer": "~0",
+    "validity": "0.0.3",
+    "validity-date-before-property": "0.0.1",
+    "validity-cf-image-context-selection": "^0.5.0",
+    "validity-unique-property": "^0.2.0"
   }
 }
