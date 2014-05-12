@@ -1,12 +1,12 @@
 {
   "author": "Paul Serby <paul.serby@clock.co.uk>",
-  "name": "cf-list-aggregator",
+  "name": "region-list-aggregator",
   "description": "Compiles lists of content base on defined filtering and ordering",
   "version": "0.0.1",
   "tags": [],
   "repository": {
     "type": "git",
-    "url": "git@github.com:clocklimited/cf-list-aggregator"
+    "url": "git@github.com:clocklimited/region-list-aggregator"
   },
   "publishConfig": {
     "registry": "http://npm.clockte.ch"
