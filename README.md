@@ -1,5 +1,7 @@
 # region-list-aggregator
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/clocklimited/region-list-aggregator.svg)](https://greenkeeper.io/)
+
 Compiles lists of content base on defined filtering and ordering.
 
 ## Installation
