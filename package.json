@@ -23,7 +23,7 @@
     "node": ">=0.10"
   },
   "dependencies": {
-    "lodash": "~2.2.1",
+    "lodash": "~4.17.19",
     "async": "~0.2.9",
     "cf-visibility-check": "~0",
     "cf-sectionizer": "~0"
